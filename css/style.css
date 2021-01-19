@@ -1,0 +1,21 @@
+html,body{
+    height: 100%;
+}
+
+.table-block {
+    display: table;
+    width: 100%;
+    height: 100vh;
+}
+
+.table-cell-block {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.scroll-table{
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+
+}
