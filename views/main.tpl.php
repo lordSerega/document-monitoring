@@ -30,7 +30,8 @@
                                 <label for="staticEmail" class="col-sm-2 col-form-label">Отделение:</label>
                                 <div class="col-sm-10">
                                     <select class="form-control" id="department" name="department">
-                                   <?php
+                                 
+                                 <?php
                                    
                                    foreach($pageData["dname"] as $row) { ?>
                                         <option><?php  print $row;?></option>
