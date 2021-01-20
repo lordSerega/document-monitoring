@@ -10,26 +10,33 @@ class IndexController extends Controller {
 		$this->model = new IndexModel();
 		$this->view = new View();
 	
-
-
 	}
 
 
 	public function index() {
 		$this->pageData['title'] = "Вход в личный кабинет";
+
+		$listDepartment = $this->model->findAllDepartment();
+		$this->pageData['listDepartment'] = $listDepartment;
+
+
+		if(!empty($_POST)) {
+			if(!$this->login()) {
+				$this->pageData['error'] = "Неправильный логин или пароль";
+			}
+		}
+
 		
 
-	
-	
-
-		
-
-		$this->pageData['dname'] = IndexModel::loadDepartment();
-		
 		$this->view->render($this->pageTpl, $this->pageData);
-	
-	
 
+		
+	}
+
+	public function login() {
+		if(!$this->model->checkUser()) {
+			return false;
+		}
 	}
 
 

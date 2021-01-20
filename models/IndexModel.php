@@ -1,20 +1,61 @@
 <?php
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 
 class IndexModel extends Model {
  
- public static function loadDepartment(){
+ 
 
-    $connection = db::connToDB();
-    $mass = array();
-    $i=0;
+/**
+ * Функция вывода из БД всех отделений
+ */
+ public  function findAllDepartment(){
+    $sql = "SELECT * FROM department";
+    $result = array();
+    
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+       $result[$row['idDepartment']] = $row;
 
-    foreach($connection->query('SELECT * FROM department') as $row) {
-        $mass[$i] = $row['departmentName'];
-        $i++;
     }
-    return( $mass);
+    return $result;
+
  }
+
+ /**
+ * Функция соответствия пароля отделения
+ */
+public function checkUser(){
+   echo $idDepartment = $_POST['department'];
+  echo  $password = $_POST['password'];
+ 
+
+   $sql = 'SELECT *
+   FROM department
+   WHERE idDepartment = :idDepartment AND password = :password';
+
+$stmt = $this->db->prepare($sql);
+$stmt->bindValue(":idDepartment", $idDepartment, PDO::PARAM_STR);
+$stmt->bindValue(":password", $password, PDO::PARAM_STR);
+$stmt->execute();
+
+
+$res = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+if(!empty($res)) {
+   echo "ok";
+} else {
+   return false;
 }
 
- 
-    
+}
+
+
+
+
+
+}

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,42 +22,51 @@
 
                 <div class="card text-center">
                     <div class="card-header">
-                    Система мониторинга движения первичных документов
+                        Система мониторинга движения первичных документов
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">Выберите нужное отделение</h5>
-                        <img src="/img/police-station.png" style="width: 20%;" class="pb-2" alt="">
-                        <form>
+                        <img src="/img/police-station.png" style="width: 20%;" class="pb-2" alt="" id="profile-img">
+                        <form method="post" id="form-signin">
+                        <?php if(empty($pageData['error'])) :?>
+                            <div class="alert alert-danger alert-dismissible fade show text-left" role="alert">
+                                <strong>Ошибка!</strong> Введён неверный пароль.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <?php endif;?>
+
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">Отделение:</label>
                                 <div class="col-sm-10">
                                     <select class="form-control" id="department" name="department">
-                                 
-                                 <?php
+                                        <?php
                                    
-                                   foreach($pageData["dname"] as $row) { ?>
-                                        <option><?php  print $row;?></option>
+                                   foreach($pageData["listDepartment"] as $key => $value) { ?>
+                                        <option value="<?php  echo $value["idDepartment"];?>">
+                                            <?php  echo $value["departmentName"];?></option>
                                         <?php } ?>
-                            
-                                        
+
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="inputPassword" class="col-sm-2 col-form-label">Пароль:</label>
                                 <div class="col-sm-10">
-                                <input type="password" class="form-control" id="inputPassword">
+                                    <input type="password" class="form-control" id="password" name="password">
                                 </div>
                             </div>
                             <div class="form-group row pl-0">
                                 <div class="col-sm-12 ml-0 pl-0">
-                                <button type="submit" class="btn btn-primary">Войти</button>
-                                <a href="" class="p-0 m-0">Создать базу данных для отделения</a>
+                                    <button type="submit" class="btn btn-primary">Войти</button>
+                                    <a href="" class="p-0 m-0">Создать базу данных для отделения</a>
                                 </div>
                             </div>
                         </form>
                     </div>
-               
+
                 </div>
             </div>
         </div>
