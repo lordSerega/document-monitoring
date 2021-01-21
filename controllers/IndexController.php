@@ -36,7 +36,7 @@ class IndexController extends Controller {
 	public function login() {
 		if(!$this->model->checkUser()) {
 			return false;
-		}
+		} 
 	}
 
 

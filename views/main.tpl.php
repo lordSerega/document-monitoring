@@ -28,7 +28,8 @@
                         <h5 class="card-title">Выберите нужное отделение</h5>
                         <img src="/img/police-station.png" style="width: 20%;" class="pb-2" alt="" id="profile-img">
                         <form method="post" id="form-signin">
-                        <?php if(empty($pageData['error'])) :?>
+                            
+                        <?php if(!empty($pageData['error'])) :?>
                             <div class="alert alert-danger alert-dismissible fade show text-left" role="alert">
                                 <strong>Ошибка!</strong> Введён неверный пароль.
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">

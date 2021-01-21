@@ -28,8 +28,8 @@ class IndexModel extends Model {
  * Функция соответствия пароля отделения
  */
 public function checkUser(){
-   echo $idDepartment = $_POST['department'];
-  echo  $password = $_POST['password'];
+    $idDepartment = $_POST['department'];
+    $password = $_POST['password'];
  
 
    $sql = 'SELECT *
@@ -47,7 +47,8 @@ $res = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 if(!empty($res)) {
-   echo "ok";
+   $_SESSION['user'] = $_POST['department'];
+   header("Location: /cabinet");
 } else {
    return false;
 }
