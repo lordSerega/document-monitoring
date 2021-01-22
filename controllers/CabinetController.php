@@ -35,6 +35,8 @@ class CabinetController extends Controller {
 
 
 
+
+
         $this->view->render($this->pageTpl, $this->pageData);
 
         }
