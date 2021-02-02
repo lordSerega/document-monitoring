@@ -33,8 +33,13 @@ class CabinetController extends Controller {
         $nameBD = $this->model->getName();
         $this->pageData['nameBD'] = $nameBD;
 
+        $contracts = $this->model->getAllContracts();
+        $this->pageData['contracts'] = $contracts;
 
+        $contractsBad = $this->model->getContractBad();
+        $this->pageData['contractsBad'] = $contractsBad;
 
+        
 
 
         $this->view->render($this->pageTpl, $this->pageData);

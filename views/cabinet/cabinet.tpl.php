@@ -127,19 +127,6 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Поиск..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -340,7 +327,9 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
                                                 Просрочены</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php echo $pageData['contractsBad'];?>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
@@ -354,143 +343,57 @@
                     <!-- Content Row -->
 
                     <div class="row">
+                        <div class="col-xl-12">
+                            <h6 class="m-0 font-weight-bold text-primary p-1">Список контрактов</h6>
+                            <div class="table-area bg-white card p-3 shadow">
+                                <table id="table_id" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>№ контракта</th>
+                                            <th>Дата заключения</th>
+                                            <th>Предмет контракта</th>
+                                            <th>Периодичность</th>
+                                            <th>Крайняя дата</th>
 
-                        <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Статистика контрактов</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                        <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Состояния контрактов</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Завершен
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Скачивание
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Загрузка
-                                        </span>
-                                    </div>
-                                </div>
+
+                                        <?php foreach($pageData['contracts'] as $key =>$value) {
+                                            $classTR = "";
+                                            $dn = date("Y-m-d");
+                                            $tomorrow = date('Y-m-d', strtotime($dn) + 86400);
+                                           
+                                            if (strtotime($dn)>strtotime($value['dateEnd']) ) {
+                                                $classTR = "bg-dark text-light";
+                                            }  if (strtotime($dn) == strtotime($value['dateEnd']) ) {
+                                                $classTR = "bg-warning text-dark";
+
+                                            }if  (strtotime($tomorrow) == strtotime($value['dateEnd']) ) {
+                                                $classTR = "bg-danger text-light";
+
+                                            }
+                                            ?>
+                                        <tr class="<?php echo $classTR;?>">
+                                            <td><?php echo $value['idContract']; ?></td>
+                                            <td><?php echo $value['numberContract']; ?></td>
+                                            <td><?php echo $value['dateConclusion']; ?></td>
+                                            <td><?php echo $value['nameContract']; ?></td>
+                                            <td><?php echo $value['period']; ?></td>
+                                            <td><?php echo $value['dateEnd']; ?></td>
+                                        </tr>
+                                        <?php } ?>
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
 
 
-                    <div class="row">
 
-                        <!-- Area Chart -->
-                        <div class="col-xl-12 col-lg-12">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Список контрактов</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <table id="table_id" class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>№ контракта</th>
-                                                    <th>Дата заключения</th>
-                                                    <th>Предмет контракта</th>
-                                                    <th>Периодичность</th>
-                                                    <th>Крайняя дата</th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach($pageData['contract'] as $key =>$value) {
-                                                    echo "<td>".$value['idContract']."</td>";
-                                                    echo "<td>".$value['numberContract']."</td>";
-                                                    echo "<td>".$value['dateConclusion']."</td>";
-                                                    echo "<td>".$value['nameContract']."</td>";
-                                                    echo "<td>".$value['period']."</td>";
-                                                    echo "<td>".$value['dateEnd']."</td>";
-                                                    }?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                        <!-- Content Row -->
-
-
-                    </div>
                     <!-- /.container-fluid -->
 
                 </div>

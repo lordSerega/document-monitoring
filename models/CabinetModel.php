@@ -63,6 +63,45 @@ class CabinetModel extends Model {
         return $res;
     }
 
+    /**
+     * Функция подсчета просроченных 
+     */
+
+    public function getContractBad(){
+        $sql = "SELECT
+        COUNT(*)
+      FROM contract
+        WHERE
+        CURDATE() > dateEnd AND department =:idDepartment";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(":idDepartment", $_SESSION['user'], PDO::PARAM_STR);
+        $stmt->execute();
+        $res = $stmt ->fetchColumn();
+        return $res;
+    }
+
+
+
+    /**
+     * Функция вывода всех контрактов отделения
+     */
+
+     public function getAllContracts(){
+         $sql = "SELECT * FROM contract WHERE department =:idDepartment";
+         $stmt = $this->db->prepare($sql);
+         $stmt->bindValue(":idDepartment", $_SESSION['user'], PDO::PARAM_STR);
+         $stmt->execute();
+
+         while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+			$result[$row['idContract']] = $row;
+        }
+        
+
+       
+         return $result;
+        
+     }
+
  
    
 
