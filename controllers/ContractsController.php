@@ -12,8 +12,17 @@ class ContractsController extends Controller {
     }
 
     public function index() {
-        echo 1;
+      
+        if(!$_SESSION['user']){
+            header("Location: /");
+        } else {
+
+            $this->view->render($this->pageTpl, $this->pageData);
+
+
     }
 
+    
+    }
    
 }

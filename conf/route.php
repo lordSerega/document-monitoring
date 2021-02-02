@@ -21,9 +21,7 @@ class Routing {
         $i = count($route)-1;
 
         while($i>0) {
-            if($route[1] != 'cabinet') {
-                header('Location: /cabinet');
-            }
+      
             if($route[$i] != '') {
                 if(is_file(CONTROLLER_PATH . ucfirst($route[$i]) . "Controller.php")) {
                     $controllerName = ucfirst($route[$i]) . "Controller";

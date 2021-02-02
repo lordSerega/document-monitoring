@@ -248,7 +248,7 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" data-ng-app="contracts" data-ng-controller="contractsController">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -377,12 +377,14 @@
                                             }
                                             ?>
                                         <tr class="<?php echo $classTR;?>">
-                                            <td><?php echo $value['idContract']; ?></td>
+                                       
+                                            <td><a href="cabinet/contracts/<?php echo $value['idContract'];?>"> <?php echo $value['idContract']; ?></a></td>
                                             <td><?php echo $value['numberContract']; ?></td>
                                             <td><?php echo $value['dateConclusion']; ?></td>
                                             <td><?php echo $value['nameContract']; ?></td>
                                             <td><?php echo $value['period']; ?></td>
                                             <td><?php echo $value['dateEnd']; ?></td>
+                                            
                                         </tr>
                                         <?php } ?>
 
@@ -391,8 +393,6 @@
                             </div>
                         </div>
                     </div>
-
-
 
                     <!-- /.container-fluid -->
 
@@ -451,7 +451,11 @@
         <script src="../../js/sb-admin-2.min.js"></script>
 
         <!-- Page level plugins -->
-        <script src="vendor/chart.js/Chart.min.js"></script>
+        <script src="../../vendor/chart.js/Chart.min.js"></script>
+        <script src="../../vendor/angular/angular.min.js"></script>
+        <script src="../../vendor/angular/angular-route.js"></script>
+        <script src="../../vendor/angular/app.js"></script>
+
 
         <!-- Page level custom scripts -->
         <script src="../../js/demo/chart-area-demo.js"></script>
@@ -462,7 +466,7 @@
                 $('#table_id').DataTable(
 
                     {
-                        select: true,
+                       
 
                         "language":
 
