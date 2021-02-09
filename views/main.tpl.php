@@ -62,7 +62,6 @@
                             <div class="form-group row pl-0">
                                 <div class="col-sm-12 ml-0 pl-0">
                                     <button type="submit" class="btn btn-primary">Войти</button>
-                                    <a href="" class="p-0 m-0">Создать базу данных для отделения</a>
                                 </div>
                             </div>
                         </form>

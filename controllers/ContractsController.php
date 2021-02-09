@@ -68,6 +68,31 @@ class ContractsController extends Controller {
 
     }
 
+    public function deleteContract(){
+        if(!$_SESSION['user']){
+            header("Location: /");
+            return;
+        }
+        
+        if(empty($_POST) || !isset($_POST['idContract']) ){
+            echo json_encode(array("success"=>false));
+            
+        }else {
+            $idContract = $_POST['idContract'];
+       
+        }
+
+        if ($this->model->deleteContract($idContract)) {
+            echo json_encode(array("success"=>true));
+        } else {
+            echo json_encode(array("success"=>false));
+        }
+
+
+    }
+
+
+
 
 
     

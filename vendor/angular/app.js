@@ -11,7 +11,7 @@ app.config(function($routeProvider, $locationProvider){
 
 
 
-app.controller('contractsController', function($scope, $http){
+app.controller('contractsController', function($scope, $http, $window){
 
     $scope.getInfoByContractID = function(id) {
         $http({
@@ -47,9 +47,32 @@ app.controller('contractsController', function($scope, $http){
             }),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).then (function(result){
-            consile.log(result);
+            if(result.data.success){
+                $window.location.href='/cabinet/';
+            }
 
         })
+
+    }
+
+
+    $scope.deleteContract = function(idContract) {
+
+
+        $http({
+            method: "POST",
+            url: "http://localhost/cabinet/contracts/deleteContract",
+            data: $.param({
+                idContract: idContract
+            }),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then (function(result){
+            if(result.data.success){
+                $window.location.href='/cabinet/';
+            } else ("Ошибка удаления!");
+
+        })
+
 
     }
 

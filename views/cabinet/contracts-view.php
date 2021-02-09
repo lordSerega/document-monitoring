@@ -37,9 +37,9 @@
 
                 </select>
             </div>
-            <div class="mb-3">
+            <div class="mb-3"> 
             <button class="btn btn-primary">Сохранить</button>
-            <button class="btn btn-danger">Удалить</button>
+            <button class="btn btn-danger" type="button" data-ng-click="deleteContract(idContract)">Удалить</button>
             </div>
 
         </form>

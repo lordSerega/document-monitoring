@@ -39,6 +39,21 @@ class ContractsModel extends Model {
 
 }
 
+public function deleteContract($idContract) {
+  $sql= "DELETE FROM contract WHERE idContract =:idContract";
+
+  $stmt = $this->db->prepare($sql);
+  $stmt->bindValue(":idContract", $idContract, PDO::PARAM_INT);
+  $stmt->execute();
+  $count = $stmt->rowCount();
+  if ($count>0){
+    return true;
+  } else {
+    return false;
+  }
+
+}
+
 
 
 
