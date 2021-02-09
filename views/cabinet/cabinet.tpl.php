@@ -4,6 +4,7 @@
 <head>
 
     <meta charset="utf-8">
+    <base href="/cabinet/contracts/">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -20,6 +21,9 @@
     <!-- Custom styles for this template-->
     <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../css/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+
+
 
 </head>
 
@@ -249,12 +253,14 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid" data-ng-app="contracts" data-ng-controller="contractsController">
+                   
+          
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Информация</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Скачать данные</a>
+                                class="fas fa-plus-square fa-sm text-white-50"></i> Добавить контракт</a>
                     </div>
 
                     <!-- Content Row -->
@@ -340,6 +346,13 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                    <div class="col-xl-12" data-ng-view>
+                    <a href="#some_point"></a>
+
+                    </div>
+                    </div>
+
                     <!-- Content Row -->
 
                     <div class="row">
@@ -355,16 +368,26 @@
                                             <th>Предмет контракта</th>
                                             <th>Периодичность</th>
                                             <th>Крайняя дата</th>
+                                            
 
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php 
 
 
-                                        <?php foreach($pageData['contracts'] as $key =>$value) {
+                                
+
+                                        if(isset($pageData['contracts'])){
+    
+                                        foreach($pageData['contracts'] as $key =>$value) {
                                             $classTR = "";
                                             $dn = date("Y-m-d");
                                             $tomorrow = date('Y-m-d', strtotime($dn) + 86400);
+                                            $dateConclusion = $value['dateConclusion'];
+                                            $dateConclusion = date("d.m.Y", strtotime($dateConclusion));
+                                            $dateEnd = $value['dateEnd'];
+                                            $dateEnd = date("d.m.Y", strtotime($dateConclusion));
                                            
                                             if (strtotime($dn)>strtotime($value['dateEnd']) ) {
                                                 $classTR = "bg-dark text-light";
@@ -378,15 +401,16 @@
                                             ?>
                                         <tr class="<?php echo $classTR;?>">
                                        
-                                            <td><a href="cabinet/contracts/<?php echo $value['idContract'];?>"> <?php echo $value['idContract']; ?></a></td>
-                                            <td><?php echo $value['numberContract']; ?></td>
-                                            <td><?php echo $value['dateConclusion']; ?></td>
-                                            <td><?php echo $value['nameContract']; ?></td>
+                                            <td> <?php echo $value['idContract']; ?></td>
+                                            <td><a data-ng-click="getInfoByContractID(<?php echo $value['idContract'];?>)" href="<?php echo $value['numberContract'];?>" class="numberContract"><?php echo $value['numberContract']; ?></a></td>
+                                            <td><?php echo $dateConclusion; ?></td>
+                                            <td><?php echo $value['nameContract']; ?> <span class="badge badge-secondary">Этап #</span></td>
                                             <td><?php echo $value['period']; ?></td>
-                                            <td><?php echo $value['dateEnd']; ?></td>
-                                            
+                                            <td><?php echo $dateEnd; ?></td>
+                                        
+            
                                         </tr>
-                                        <?php } ?>
+                                        <?php } }?>
 
                                     </tbody>
                                 </table>
@@ -452,8 +476,10 @@
 
         <!-- Page level plugins -->
         <script src="../../vendor/chart.js/Chart.min.js"></script>
-        <script src="../../vendor/angular/angular.min.js"></script>
+
+        <script src="../../vendor/angular/angular.min.js"></script>     
         <script src="../../vendor/angular/angular-route.js"></script>
+
         <script src="../../vendor/angular/app.js"></script>
 
 

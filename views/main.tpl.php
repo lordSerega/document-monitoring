@@ -47,7 +47,7 @@
                                    
                                    foreach($pageData["listDepartment"] as $key => $value) { ?>
                                         <option value="<?php  echo $value["idDepartment"];?>">
-                                            <?php  echo $value["departmentName"];?></option>
+                                            <?php  echo $value["idDepartment"]." - ".$value["departmentName"];?></option>
                                         <?php } ?>
 
                                     </select>

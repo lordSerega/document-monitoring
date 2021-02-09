@@ -77,7 +77,9 @@ class CabinetModel extends Model {
         $stmt->bindValue(":idDepartment", $_SESSION['user'], PDO::PARAM_STR);
         $stmt->execute();
         $res = $stmt ->fetchColumn();
-        return $res;
+ 
+            return $res; 
+      
     }
 
 
@@ -97,8 +99,9 @@ class CabinetModel extends Model {
         }
         
 
-       
-         return $result;
+        if(isset($result)){
+            return $result; 
+        }
         
      }
 

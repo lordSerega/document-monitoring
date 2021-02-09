@@ -43,11 +43,13 @@ $stmt->execute();
 
 
 $res = $stmt->fetch(PDO::FETCH_ASSOC);
+$dpName = $res['departmentName'];
 
 
 
 if(!empty($res)) {
    $_SESSION['user'] = $_POST['department'];
+   $_SESSION['userName'] = $dpName;
    header("Location: /cabinet");
 } else {
    return false;

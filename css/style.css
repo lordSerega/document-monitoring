@@ -19,3 +19,20 @@ html,body{
     white-space: nowrap;
 
 }
+
+.numberContract {
+    padding: 5px;
+    text-align: center; 
+    color: #F7F7F7;
+    font-weight: bold;
+    
+    display: inline-block;
+    background: #858796;
+    border-radius: 10px;
+}
+
+.numberContract:hover {
+ font-size: 21px;
+ text-decoration: none;
+ color: #F7F7F7;
+}

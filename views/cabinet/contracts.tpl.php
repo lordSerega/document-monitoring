@@ -229,7 +229,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><i
-                                        class="fas fa-building"></i> <?php echo $pageData['nameBD'];?></span>
+                                        class="fas fa-building"></i> <?php echo $_SESSION['userName'];?></span>
 
                             </a>
                             <!-- Dropdown - User Information -->
@@ -265,62 +265,94 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Карточка контракта</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Добавление нового контракта</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-edit fa-sm text-white-50"></i> Изменить данные</a>
                     </div>
 
-                    
+
                     <!-- Content Row -->
 
                     <div class="row">
-                    <div class="col-xl-12">
-                    <div class="card">
-                    <div class="card-body">
-                    <h4 class="card-title">Контракт № 545454</h4>
-                    <form action="" class="auth-form">
-               <div class="mb-3">
-                   <label for="chooseBD" class="form-label"><b>Название отделения</b> </label>
-                    <input type="text" id="nameBD" class="form-control" value="Управление Пенсионного фонда России в Октябрьском районе" disabled>   
-               </div>
-                <div class="mb-3">
-                   <label for="chooseBD" class="form-label"><b>Предмет контракта</b> </label>
-                    <input type="text" id="nameBD" class="form-control" value="Поставка бумаги" disabled>   
-               </div>
-               
-               <div class="mb-3">
-                   <label for="chooseBD" class="form-label"><b>Дата заключения контракта</b> </label>
-                    <input type="date" id="nameBD" class="form-control" disabled>   
-               </div>
-               <div class="mb-3">
-                   <label for="chooseBD" class="form-label"><b>Периодичность исполнения</b> </label>
-                    <input type="number" id="nameBD" class="form-control" value="12"disabled>   
-               </div>
-               <div class="mb-3">
-                   <label for="chooseBD" class="form-label"><b>Дата окончания этапа по контракту</b> </label>
-                    <input type="date" id="nameBD" class="form-control" value="12"disabled>   
-               </div>
-               <div class="mb-3">
-                   <label for="chooseBD" class="form-label"><b>Дата предоставления документов поставщиком в соответствии с контрактом</b> </label>
-                    <input type="date" id="nameBD" class="form-control" value="12"disabled>   
-               </div>
-                    </form>
-               <hr>
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <form action="" class="auth-form">
+                                        <div class="mb-3">
+                                            <label for="chooseBD" class="form-label"><b>Название отделения</b> </label>
+                                            <input type="text" id="nameBD" class="form-control"
+                                                value="Управление Пенсионного фонда России в Октябрьском районе"
+                                                disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="contractNumber" class="form-label"><b>Номер контракта</b>
+                                            </label>
+                                            <input type="text" id="contractNumber" class="form-control"
+                                                placeholder="Введите номер контракта">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="chooseBD" class="form-label"><b>Предмет контракта</b> </label>
+                                            <input type="text" id="nameBD" class="form-control"
+                                                placeholder="Введите предмет контракта">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="chooseBD" class="form-label"><b>Дата заключения контракта</b>
+                                            </label>
+                                            <input type="date" id="nameBD" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="chooseBD" class="form-label"><b>Периодичность исполнения</b>
+                                            </label>
+                                            <select class="form-control" id="department" name="department">
+                                                <?php for ($i=1; $i<=12; $i++) { ?>
+                                                <option value="">
+                                                    <?php echo $i;?>
+                                                </option>
+                                                <?php } ?>
+                                               
+                                            </select>
+                                        </div>
 
 
-                    </div>
-                    
+                                        <div class="mb-3">
+                                            <hr>
+                                            <h4>Этап 1</h4>
+                                            <label for="chooseBD" class="form-label"><b>Дата начала этапа</b>
+                                            </label>
+                                            <input type="date" id="nameBD" class="form-control">
+                                        </div>
 
+                                        <div class="mb-3">
+                                           
+                                            <label for="chooseBD" class="form-label"><b>Дата завершения этапа</b>
+                                            </label>
+                                            <input type="date" id="nameBD" class="form-control">
+                                        </div>
+
+
+
+
+                                      
+
+                                    </form>
+                                    <hr>
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                    </div>
-                    
+
 
                     <!-- Content Row -->
 
-                    
 
-                    
+
+
 
                 </div>
                 <!-- End of Main Content -->
@@ -366,7 +398,7 @@
             </div>
         </div>
 
-        
+
 
         <!-- Bootstrap core JavaScript-->
         <script src="../../vendor/jquery/jquery.min.js"></script>
