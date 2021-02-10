@@ -4,6 +4,7 @@
 <head>
 
     <meta charset="utf-8">
+    <base href="/cabinet/contracts/">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -23,7 +24,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top"  data-ng-app="contracts" data-ng-controller="contractsController">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -44,7 +45,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="http://localhost/cabinet/">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Доска информации</span></a>
             </li>
@@ -265,9 +266,8 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Добавление нового контракта</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-edit fa-sm text-white-50"></i> Изменить данные</a>
+                        <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-file-contract"></i>  Добавление нового контракта</h1>
+    
                     </div>
 
 
@@ -280,63 +280,53 @@
 
                                     <form action="" class="auth-form">
                                         <div class="mb-3">
-                                            <label for="chooseBD" class="form-label"><b>Название отделения</b> </label>
-                                            <input type="text" id="nameBD" class="form-control"
-                                                value="Управление Пенсионного фонда России в Октябрьском районе"
+                                            <label for="nameDp" class="form-label"><b>Название отделения</b> </label>
+                                            <input type="text" id="nameDp" name="nameDp" class="form-control"
+                                                value=" <?php echo $_SESSION['userName'];?>"
                                                 disabled>
                                         </div>
                                         <div class="mb-3">
                                             <label for="contractNumber" class="form-label"><b>Номер контракта</b>
                                             </label>
-                                            <input type="text" id="contractNumber" class="form-control"
+                                            <input type="text" id="contractNumber" name="contractNumber" class="form-control"
                                                 placeholder="Введите номер контракта">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="chooseBD" class="form-label"><b>Предмет контракта</b> </label>
-                                            <input type="text" id="nameBD" class="form-control"
+                                            <label for="contractTitle" class="form-label"><b>Предмет контракта</b> </label>
+                                            <input type="text" id="contractTitle" name="contractTitle" class="form-control"
                                                 placeholder="Введите предмет контракта">
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="chooseBD" class="form-label"><b>Дата заключения контракта</b>
+                                            <label for="contractDate" class="form-label"><b>Дата заключения контракта</b>
                                             </label>
-                                            <input type="date" id="nameBD" class="form-control">
+                                            <input type="date" id="contractDate" name="contractDate" class="form-control">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="chooseBD" class="form-label"><b>Периодичность исполнения</b>
-                                            </label>
-                                            <select class="form-control" id="department" name="department">
-                                                <?php for ($i=1; $i<=12; $i++) { ?>
-                                                <option value="">
-                                                    <?php echo $i;?>
-                                                </option>
-                                                <?php } ?>
-                                               
+                                            <label for="stage" class="form-label"><b>Периодичность
+                                                    исполнения</b></label>
+                                            <select class="form-control" id="stage" name="stage">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
                                             </select>
                                         </div>
+                                        <div id="block-wrap"></div>
 
-
-                                        <div class="mb-3">
-                                            <hr>
-                                            <h4>Этап 1</h4>
-                                            <label for="chooseBD" class="form-label"><b>Дата начала этапа</b>
-                                            </label>
-                                            <input type="date" id="nameBD" class="form-control">
-                                        </div>
-
-                                        <div class="mb-3">
-                                           
-                                            <label for="chooseBD" class="form-label"><b>Дата завершения этапа</b>
-                                            </label>
-                                            <input type="date" id="nameBD" class="form-control">
-                                        </div>
-
-
-
-
-                                      
+                                        <button class="btn btn-success" data-ng-click="addContract()">Добавить контракт</button>
 
                                     </form>
+
+
                                     <hr>
 
 
@@ -410,13 +400,30 @@
         <!-- Custom scripts for all pages-->
         <script src="../../js/sb-admin-2.min.js"></script>
 
-        <!-- Page level plugins -->
-        <script src="vendor/chart.js/Chart.min.js"></script>
+        <script src="../../vendor/angular/angular.min.js"></script>     
+        <script src="../../vendor/angular/angular-route.js"></script>
 
-        <!-- Page level custom scripts -->
-        <script src="../../js/demo/chart-area-demo.js"></script>
-        <script src="../../js/demo/chart-pie-demo.js"></script>
+        <script src="../../vendor/angular/app.js"></script>
+
+
+
         <script type="text/javascript" src="../../js/datatables.min.js"></script>
+   
+        <script>
+            $('#stage').change(function () {
+                $('#block-wrap')
+                    .empty(); //каждый раз очищаем обёртку, прежде чем добавлять туда блок(и)
+                let val = $(this).val(); //получаем значение селекта
+                for (let i = 1; i <= val; i++) {
+                    let elem =
+                        '<div class="stage"><div class="mb-3"><hr><h4>Этап ' +
+                        i +
+                        '</h4> <input type="text" name="stageName'+i+'" id="stageName'+i+'" value="'+i+'" hidden><label for="dateBegin'+i+'" class="form-label"><b>Дата начала этапа</b></label><input type="date" id="dateBegin'+i+'" name="dateBegin'+i+'" class="form-control"></div><div class="mb-3"><label for="dateEnd'+i+'" class="form-label"><b>Дата завершения этапа</b></label><input type="date" id="dateEnd'+i+'" name="dateEnd'+i+'" class="form-control"></div></div>'; //создаём блок с соответствующим номером этапа
+                    $('#block-wrap').append(elem); //добавляем блок в обёртку
+                }
+            });
+        </script>
+
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#table_id').DataTable(

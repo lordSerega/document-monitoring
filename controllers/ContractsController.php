@@ -44,6 +44,34 @@ class ContractsController extends Controller {
         }
     }
 
+
+    public function addContract() {
+        if(!$_SESSION['user']) {
+            header("Location: /");
+            return;
+        }
+
+    
+            $nameDp = $_SESSION['user'];
+            $contractNumber = trim($_POST['contractNumber']);
+            $contractTitle = trim($_POST['contractTitle']);
+            $contractDate = trim($_POST['contractDate']);
+            $stage = $_POST['stage'];
+            $array1 = json_decode($stage);
+            print_r($array1);
+
+
+            if($this->model->addContract($nameDp, $contractNumber,$contractTitle, $contractDate,$array1)) {
+                echo json_encode(array("success" => true));
+                print_r($array1);
+            } else {
+                echo json_encode(array("success" => false));
+                print_r($array1);
+            
+        }
+    }
+
+
     public function saveContracts() {
         if(!$_SESSION['user']){
             header("Location: /");

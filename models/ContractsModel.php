@@ -26,6 +26,27 @@ class ContractsModel extends Model {
        
    }
 
+
+   public function addContract($nameDp, $contractNumber,$contractTitle, $contractDate, $array1) {
+
+    $sql = "INSERT INTO contract(department, numberContract, nameContract, dateConclusion)
+    VALUES(:department, :numberContract, :nameContract, :dateConclusion)
+    ";
+      $stmt = $this->db->prepare($sql);
+      $stmt->bindValue(":department", $nameDp, PDO::PARAM_INT);
+      $stmt->bindValue(":numberContract", $contractNumber, PDO::PARAM_INT);
+      $stmt->bindValue(":nameContract", $contractTitle, PDO::PARAM_STR);
+      $stmt->bindValue(":dateConclusion", $contractDate, PDO::PARAM_STR);
+      $stmt->execute();
+      return true;
+
+
+    
+}
+
+
+
+
    public function saveContractsInfo($idContract,$numberContract,$nameContract,$dateConclusion) {
     $sql = "UPDATE contract SET numberContract = :numberContract, nameContract = :nameContract, dateConclusion =:dateConclusion
                             WHERE idContract = :idContract;";
