@@ -10,7 +10,7 @@ ini_set('display_startup_errors', 1);
 <head>
 
     <meta charset="utf-8">
-    <base href="/cabinet/contracts/">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -373,25 +373,7 @@ ini_set('display_startup_errors', 1);
             <i class="fas fa-angle-up"></i>
         </a>
 
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Готовы выйти?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Нажмите на кнопку "Выход", если вы готовы завершить текущий сеанс.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Отмена</button>
-                        <a class="btn btn-primary" href="../cabinet/logout">Выход</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+ 
 
 
 
@@ -402,17 +384,15 @@ ini_set('display_startup_errors', 1);
         <!-- Core plugin JavaScript-->
         <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="../../js/sb-admin-2.min.js"></script>
+
 
         <script src="../../vendor/angular/angular.min.js"></script>     
         <script src="../../vendor/angular/angular-route.js"></script>
 
-        <script src="../../vendor/angular/app.js"></script>
+        <script src="../../vendor/angular/appDocument.js"></script>
 
 
 
-        <script type="text/javascript" src="../../js/datatables.min.js"></script>
    
         <script>
             $('#stage').change(function () {
@@ -429,49 +409,6 @@ ini_set('display_startup_errors', 1);
             });
         </script>
 
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#table_id').DataTable(
-
-                    {
-                        select: true,
-
-                        "language":
-
-                        {
-                            "processing": "Подождите...",
-                            "search": "Поиск:",
-                            "lengthMenu": "Показать _MENU_ записей",
-                            "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
-                            "infoEmpty": "Записи с 0 до 0 из 0 записей",
-                            "infoFiltered": "(отфильтровано из _MAX_ записей)",
-                            "loadingRecords": "Загрузка записей...",
-                            "zeroRecords": "Записи отсутствуют.",
-                            "emptyTable": "В таблице отсутствуют данные",
-                            "paginate": {
-                                "first": "Первая",
-                                "previous": "Предыдущая",
-                                "next": "Следующая",
-                                "last": "Последняя"
-                            },
-                            "aria": {
-                                "sortAscending": ": активировать для сортировки столбца по возрастанию",
-                                "sortDescending": ": активировать для сортировки столбца по убыванию"
-                            },
-                            "select": {
-                                "rows": {
-                                    "_": "Выбрано записей: %d",
-                                    "0": "Кликните по записи для выбора",
-                                    "1": "Выбрана одна запись"
-                                }
-                            }
-                        }
-                    }
-                );
-
-
-            });
-        </script>
 
 </body>
 

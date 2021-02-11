@@ -1,5 +1,9 @@
 <?php
 
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
 class ContractsController extends Controller {
 
     private $pageTpl = "/views/cabinet/contracts.tpl.php";
@@ -44,32 +48,91 @@ class ContractsController extends Controller {
         }
     }
 
-
     public function addContract() {
         if(!$_SESSION['user']) {
             header("Location: /");
             return;
         }
-
     
             $nameDp = $_SESSION['user'];
             $contractNumber = trim($_POST['contractNumber']);
             $contractTitle = trim($_POST['contractTitle']);
             $contractDate = trim($_POST['contractDate']);
-            $stage = $_POST['stage'];
-            $array1 = json_decode($stage);
-            print_r($array1);
 
+            $stageName1 = trim($_POST['stageName1']);
+            $dateBegin1 = trim($_POST['dateBegin1']);
+            $dateEnd1 = trim($_POST['dateEnd1']);
 
-            if($this->model->addContract($nameDp, $contractNumber,$contractTitle, $contractDate,$array1)) {
+            $stageName2 = trim($_POST['stageName2']);
+            $dateBegin2 = trim($_POST['dateBegin2']);
+            $dateEnd2 = trim($_POST['dateEnd2']);
+
+            $stageName3 = trim($_POST['stageName3']);
+            $dateBegin3 = trim($_POST['dateBegin3']);
+            $dateEnd3 = trim($_POST['dateEnd3']);
+
+            $stageName4 = trim($_POST['stageName4']);
+            $dateBegin4 = trim($_POST['dateBegin4']);
+            $dateEnd4 = trim($_POST['dateEnd4']);
+
+            $stageName5 = trim($_POST['stageName5']);
+            $dateBegin5 = trim($_POST['dateBegin5']);
+            $dateEnd5 = trim($_POST['dateEnd5']);
+
+            $stageName6 = trim($_POST['stageName6']);
+            $dateBegin6 = trim($_POST['dateBegin6']);
+            $dateEnd6 = trim($_POST['dateEnd6']);
+            
+            $stageName7 = trim($_POST['stageName7']);
+            $dateBegin7 = trim($_POST['dateBegin7']);
+            $dateEnd7 = trim($_POST['dateEnd7']);
+
+            $stageName8 = trim($_POST['stageName8']);
+            $dateBegin8 = trim($_POST['dateBegin8']);
+            $dateEnd8 = trim($_POST['dateEnd8']);
+
+            $stageName9 = trim($_POST['stageName9']);
+            $dateBegin9 = trim($_POST['dateBegin9']);
+            $dateEnd9  = trim($_POST['dateEnd9']);
+
+            $stageName10 = trim($_POST['stageName10']);
+            $dateBegin10 = trim($_POST['dateBegin10']);
+            $dateEnd10 = trim($_POST['dateEnd10']);
+
+            $stageName11 = trim($_POST['stageName11']);
+            $dateBegin11 = trim($_POST['dateBegin11']);
+            $dateEnd11 = trim($_POST['dateEnd11']);
+
+            $stageName12 = trim($_POST['stageName12']);
+            $dateBegin12 = trim($_POST['dateBegin12']);
+            $dateEnd12 = trim($_POST['dateEnd12']);
+      
+
+            
+         
+          
+            if($this->model->addContract($nameDp, $contractNumber,$contractTitle, $contractDate,
+            $stageName1, $dateBegin1, $dateEnd1,
+            $stageName2, $dateBegin2, $dateEnd2,
+            $stageName3, $dateBegin3, $dateEnd3,
+            $stageName4, $dateBegin4, $dateEnd4,
+            $stageName5, $dateBegin5, $dateEnd5,
+            $stageName6, $dateBegin6, $dateEnd6,
+            $stageName7, $dateBegin7, $dateEnd7,
+            $stageName8, $dateBegin8, $dateEnd8,
+            $stageName9, $dateBegin9, $dateEnd9,
+            $stageName10, $dateBegin10, $dateEnd10,
+            $stageName11, $dateBegin11, $dateEnd11,
+            $stageName12, $dateBegin12, $dateEnd12)) {
                 echo json_encode(array("success" => true));
-                print_r($array1);
+            
+             
             } else {
                 echo json_encode(array("success" => false));
-                print_r($array1);
             
         }
     }
+
 
 
     public function saveContracts() {
