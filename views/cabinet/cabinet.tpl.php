@@ -359,7 +359,7 @@
 
                     <div class="row">
                         <div class="col-xl-12">
-                            <h6 class="m-0 font-weight-bold text-primary p-1">Список контрактов</h6>
+                            <h6 class="m-0 font-weight-bold text-primary p-1">Список <span class="badge bg-success text-light">текущих</span> контрактов </h6>
                             <div class="table-area bg-white card p-3 shadow">
                                 <table id="table_id" class="table table-hover">
                                     <thead>
@@ -368,7 +368,7 @@
                                             <th>№ контракта</th>
                                             <th>Дата заключения</th>
                                             <th>Предмет контракта</th>
-                                            <th>Периодичность</th>
+                                            <th>Отделение</th>
                                             <th>Крайняя дата</th>
                                             
 
@@ -388,26 +388,29 @@
                                             $tomorrow = date('Y-m-d', strtotime($dn) + 86400);
                                             $dateConclusion = $value['dateConclusion'];
                                             $dateConclusion = date("d.m.Y", strtotime($dateConclusion));
-                                            $dateEnd = $value['dateEnd'];
+                                            $dateEnd = $value['dtSt_end'];
                                             $dateEnd = date("d.m.Y", strtotime($dateEnd));
                                            
-                                            if (strtotime($dn)>strtotime($value['dateEnd']) ) {
+                                            if (strtotime($dn)>strtotime($value['dtSt_end']) ) {
                                                 $classTR = "bg-dark text-light";
-                                            }  if (strtotime($dn) == strtotime($value['dateEnd']) ) {
+                                            }  if (strtotime($dn) == strtotime($value['dtSt_end']) ) {
                                                 $classTR = "bg-warning text-dark";
 
-                                            }if  (strtotime($tomorrow) == strtotime($value['dateEnd']) ) {
+                                            }if  (strtotime($tomorrow) == strtotime($value['dtSt_end']) ) {
                                                 $classTR = "bg-danger text-light";
 
                                             }
                                             ?>
                                         <tr class="<?php echo $classTR;?>">
-                                       
+                                        
                                             <td> <?php echo $value['idContract']; ?></td>
                                             <td><a data-ng-click="getInfoByContractID(<?php echo $value['idContract'];?>)" href="<?php echo $value['numberContract'];?>" class="numberContract"><?php echo $value['numberContract']; ?></a></td>
                                             <td><?php echo $dateConclusion; ?></td>
-                                            <td><?php echo $value['nameContract']; ?> <span class="badge badge-secondary">Этап #</span></td>
-                                            <td><?php echo $value['period']; ?></td>
+                                            <td>
+                                            <?php echo $value['nameContract']; ?> 
+                                            <span class="badge badge-secondary">Этап # <?php echo $value['number_stage']; ?></span>
+                                            </td>
+                                            <td><?php echo $value['departmentName']; ?></td>
                                             <td><?php echo $dateEnd; ?></td>
                                         
             
@@ -415,6 +418,18 @@
                                         <?php } }?>
 
                                     </tbody>
+                                    <tfoot>
+                                    <tr>
+                                            <th>#</th>
+                                            <th>№ контракта</th>
+                                            <th>Дата заключения</th>
+                                            <th>Предмет контракта</th>
+                                            <th>Периодичность</th>
+                                            <th>Крайняя дата</th>
+                                            
+
+                                        </tr>
+        </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -472,68 +487,51 @@
 
         <!-- Core plugin JavaScript-->
         <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+        
 
         <!-- Custom scripts for all pages-->
         <script src="../../js/sb-admin-2.min.js"></script>
 
-        <!-- Page level plugins -->
-        <script src="../../vendor/chart.js/Chart.min.js"></script>
-
+        
         <script src="../../vendor/angular/angular.min.js"></script>     
         <script src="../../vendor/angular/angular-route.js"></script>
 
         <script src="../../vendor/angular/app.js"></script>
-
-        <script src="../../vendor/sweetalert-master/src/sweetalert.js"></script>
-        <link rel="stylesheet" type="text/css" href="../../vendor/sweetalert-master/src/sweetalert.css">
 
 
 
         <!-- Page level custom scripts -->
 
         <script type="text/javascript" src="../../js/datatables.min.js"></script>
+
         <script type="text/javascript">
-            $(document).ready(function () {
-                $('#table_id').DataTable(
-
-                    {
-                       
-
-                        "language":
-
-                        {
-                            "processing": "Подождите...",
-                            "search": "Поиск:",
-                            "lengthMenu": "Показать _MENU_ записей",
-                            "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
-                            "infoEmpty": "Записи с 0 до 0 из 0 записей",
-                            "infoFiltered": "(отфильтровано из _MAX_ записей)",
-                            "loadingRecords": "Загрузка записей...",
-                            "zeroRecords": "Записи отсутствуют.",
-                            "emptyTable": "В таблице отсутствуют данные",
-                            "paginate": {
-                                "first": "Первая",
-                                "previous": "Предыдущая",
-                                "next": "Следующая",
-                                "last": "Последняя"
-                            },
-                            "aria": {
-                                "sortAscending": ": активировать для сортировки столбца по возрастанию",
-                                "sortDescending": ": активировать для сортировки столбца по убыванию"
-                            },
-                            "select": {
-                                "rows": {
-                                    "_": "Выбрано записей: %d",
-                                    "0": "Кликните по записи для выбора",
-                                    "1": "Выбрана одна запись"
-                                }
-                            }
-                        }
-                    }
-                );
+        $(document).ready(function() {
+    $('#table_id').DataTable( {
+        initComplete: function () {
+            this.api().columns([4]).every( function () {
+                var column = this;
+                var select = $('<select class="form-control" ><option value=""></option></select>')
+                    .appendTo( $(column.header()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    var val = $('<div/>').html(d).text();
+select.append( '<option value="' + val + '">' +  val +   ' </option>' );
+                } );
+            } );
+        }
+    } );
+} );
 
 
-            });
         </script>
 
 </body>

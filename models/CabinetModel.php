@@ -37,8 +37,10 @@ class CabinetModel extends Model {
         $sql = "SELECT
         COUNT(*)
       FROM contract
+      INNER JOIN stage
+           ON stage.contracrt = contract.idContract
         WHERE
-        (DATE_ADD(CURDATE(), INTERVAL 1 DAY)) = dateEnd AND department =:idDepartment";
+        (DATE_ADD(CURDATE(), INTERVAL 1 DAY)) = stage.dtSt_end AND department =:idDepartment AND stage.status = 'В процессе'";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":idDepartment", $_SESSION['user'], PDO::PARAM_STR);
         $stmt->execute();
@@ -54,8 +56,10 @@ class CabinetModel extends Model {
         $sql = "SELECT
         COUNT(*)
       FROM contract
+      INNER JOIN stage
+           ON stage.contracrt = contract.idContract
         WHERE
-        CURDATE() = dateEnd AND department =:idDepartment";
+        CURDATE() = stage.dtSt_end AND department =:idDepartment AND stage.status = 'В процессе'";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":idDepartment", $_SESSION['user'], PDO::PARAM_STR);
         $stmt->execute();
@@ -71,8 +75,10 @@ class CabinetModel extends Model {
         $sql = "SELECT
         COUNT(*)
       FROM contract
+      INNER JOIN stage
+           ON stage.contracrt = contract.idContract
         WHERE
-        CURDATE() > dateEnd AND department =:idDepartment";
+        CURDATE() > stage.dtSt_end AND department =:idDepartment AND stage.status = 'В процессе'";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":idDepartment", $_SESSION['user'], PDO::PARAM_STR);
         $stmt->execute();
@@ -85,11 +91,26 @@ class CabinetModel extends Model {
 
 
     /**
-     * Функция вывода всех контрактов отделения
+     * Функция вывода всех контрактов отделения со статусом в процессе
      */
 
      public function getAllContracts(){
-         $sql = "SELECT * FROM contract WHERE department =:idDepartment";
+         $sql = "SELECT
+         contract.idContract,
+         department.departmentName,
+         contract.numberContract,
+         contract.nameContract,
+         contract.dateConclusion,
+         stage.id_stage,
+         stage.status,
+         stage.dtSt_end,
+         stage.number_stage
+       FROM contract
+         INNER JOIN department
+           ON contract.department = department.idDepartment
+         INNER JOIN stage
+           ON stage.contracrt = contract.idContract
+       WHERE stage.status = 'В процессе'";
          $stmt = $this->db->prepare($sql);
          $stmt->bindValue(":idDepartment", $_SESSION['user'], PDO::PARAM_STR);
          $stmt->execute();
@@ -97,6 +118,8 @@ class CabinetModel extends Model {
          while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 			$result[$row['idContract']] = $row;
         }
+  
+   
         
 
         if(isset($result)){
@@ -104,6 +127,7 @@ class CabinetModel extends Model {
         }
         
      }
+
 
  
    

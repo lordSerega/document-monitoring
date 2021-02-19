@@ -26,11 +26,78 @@ class ContractsModel extends Model {
 
      return $result;
 
+     $sql1 = "SELECT * from stage WHERE contracrt = :idContract";
+     $stmt1 = $this->db->prepare($sql1);
+     $stmt1->bindValue(":idContract", $id, PDO::PARAM_INT);
+     $stmt1->execute();
+  
+     while($row = $stmt1->fetch(PDO::FETCH_ASSOC)) {
+			$stageContract[$row['id_stage']] = $row;
+        }
+  
+
+        if(isset($stageContract)){
+            return $stageContract; 
+        }
+
+
        
    }
 
+   /**
+ * Функция вывода из БД всех отделений
+ */
+ public  function findAllDepartment(){
+  $sql = "SELECT * FROM department";
+  $result = array();
+  
+  $stmt = $this->db->prepare($sql);
+  $stmt->execute();
+  while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+     $result[$row['idDepartment']] = $row;
 
-   public function addContract($nameDp, $contractNumber,$contractTitle, $contractDate,
+  }
+  return $result;
+
+}
+
+
+
+   public function getStagesById($id) {
+
+    $sql=  "SELECT * from stage WHERE contract = :idContract";
+    $stmt = $this ->db->prepare($sql);
+    $stmt->bindValue(":idContract", $id, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+      $stageContract[$row['id_stage']] = $row;
+    }
+    if (isset($stageContract)){
+      return $stageContract;
+    }
+   }
+
+   public function getCountStageById($id){
+
+    $sql= "SELECT
+    COUNT(*) AS 'stageCount'
+  FROM stage
+  INNER JOIN contract 
+     ON stage.contracrt = contract.idContract
+  WHERE contract.idContract = :idContract";
+
+  $stmt = $this->db->prepare($sql);
+  $stmt->bindValue(":idContract", $id, PDO::PARAM_INT);
+  $stmt->execute();
+  $result=$stmt->fetch(PDO::FETCH_ASSOC);
+
+  return $result;
+
+}
+
+
+   public function addContract( $dpList, $contractNumber,$contractTitle, $contractDate,
    $stageName1, $dateBegin1, $dateEnd1,
    $stageName2, $dateBegin2, $dateEnd2,
    $stageName3, $dateBegin3, $dateEnd3,
@@ -44,33 +111,40 @@ class ContractsModel extends Model {
    $stageName11, $dateBegin11, $dateEnd11,
    $stageName12, $dateBegin12, $dateEnd12) {
 
-    $sql = "INSERT INTO contract(department, numberContract, nameContract, dateConclusion)
+
+
+
+    foreach($dpList as $value) {
+
+      $sql = "INSERT INTO contract(department, numberContract, nameContract, dateConclusion)
     VALUES(:department, :numberContract, :nameContract, :dateConclusion)
     ";
       $stmt = $this->db->prepare($sql);
-      $stmt->bindValue(":department", $nameDp, PDO::PARAM_INT);
+      $stmt->bindValue(":department", $value, PDO::PARAM_INT);
       $stmt->bindValue(":numberContract", $contractNumber, PDO::PARAM_INT);
       $stmt->bindValue(":nameContract", $contractTitle, PDO::PARAM_STR);
       $stmt->bindValue(":dateConclusion", $contractDate, PDO::PARAM_STR);
       $stmt->execute();
 
-      $sql1= "SELECT contract.idContract FROM contract WHERE contract.numberContract = :num";
+      $sql1= "SELECT contract.idContract FROM contract WHERE contract.numberContract = :num and contract.department =:dp";
 
       $stmt1 = $this->db->prepare($sql1);
       $stmt1->bindValue(":num", $contractNumber, PDO::PARAM_INT);
+      $stmt1->bindValue(":dp", $value, PDO::PARAM_INT);
       $stmt1->execute();
       $idCont=$stmt1->fetchColumn();
 
       
 
-   
+        $status = "В процессе";
       
        
-        $sql2 = " INSERT INTO stage (contracrt,dtSt_begin,dtSt_end,number_stage) VALUES(:id, :dtSt_begin, :dtSt_end, :number_stage)";
+        $sql2 = " INSERT INTO stage (contracrt,dtSt_begin,dtSt_end,number_stage, status) VALUES(:id, :dtSt_begin, :dtSt_end, :number_stage, :status)";
         $stmt2 = $this->db->prepare($sql2);
         $stmt2->bindValue(":id", $idCont, PDO::PARAM_INT);
         $stmt2->bindValue(":dtSt_begin",$dateBegin1, PDO::PARAM_STR);
         $stmt2->bindValue(":dtSt_end", $dateEnd1, PDO::PARAM_STR);
+        $stmt2->bindValue(":status", $status, PDO::PARAM_STR);
         $stmt2->bindValue(":number_stage", $stageName1, PDO::PARAM_INT);
         $stmt2->execute();
 
@@ -161,6 +235,12 @@ class ContractsModel extends Model {
         $stmt13->bindValue(":dtSt_end", $dateEnd12, PDO::PARAM_STR);
         $stmt13->bindValue(":number_stage", $stageName12, PDO::PARAM_INT);
         $stmt13->execute();
+
+     
+
+    }
+
+    
    
    }
 

@@ -20,17 +20,19 @@ ini_set('display_startup_errors', 1);
 
     <!-- Custom fonts for this template-->
     <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../css/datatables.min.css" />
 
+    <link href="../../vendor/multi/slimselect.min.css" rel="stylesheet">
+
+
+
+
 </head>
 
-<body id="page-top"  data-ng-app="contracts" data-ng-controller="contractsController">
+<body id="page-top" data-ng-app="contracts" data-ng-controller="contractsController">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -84,31 +86,6 @@ ini_set('display_startup_errors', 1);
 
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Настройки</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-
-
-
-
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -272,8 +249,9 @@ ini_set('display_startup_errors', 1);
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-file-contract"></i>  Добавление нового контракта</h1>
-    
+                        <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-file-contract"></i> Добавление нового
+                            контракта</h1>
+
                     </div>
 
 
@@ -281,31 +259,51 @@ ini_set('display_startup_errors', 1);
 
                     <div class="row">
                         <div class="col-xl-12">
+
+
                             <div class="card">
                                 <div class="card-body">
-                                    <form action="" class="auth-form">
+                                    <form action="" class="auth-form" >
+
+
                                         <div class="mb-3">
-                                            <label for="nameDp" class="form-label"><b>Название отделения</b> </label>
-                                            <input type="text" id="nameDp" name="nameDp" class="form-control"
-                                                value=" <?php echo $_SESSION['userName'];?>"
-                                                disabled>
+                                            <strong>Выберите управления:</strong>
+                                            <select id="slim-select" name="select[]" multiple="multiple" ng-model="data.model">
+                                                <optgroup label="Выбрать все управления">
+                                                    <?php  foreach($pageData["listDepartment"] as $key => $value) { ?>
+                                                    <option value="<?php  echo $value["idDepartment"];?>">
+                                                        <?php  echo $value["idDepartment"]." - ".$value["departmentName"];?>
+                                                    </option>
+                                                    <?php } ?>
+                                                </optgroup>
+                                            </select>
+
+                                            {{data.model}}
+
                                         </div>
+
+
+
+
                                         <div class="mb-3">
                                             <label for="contractNumber" class="form-label"><b>Номер контракта</b>
                                             </label>
-                                            <input type="text" id="contractNumber" name="contractNumber" class="form-control"
-                                                placeholder="Введите номер контракта">
+                                            <input type="text" id="contractNumber" name="contractNumber"
+                                                class="form-control" placeholder="Введите номер контракта">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="contractTitle" class="form-label"><b>Предмет контракта</b> </label>
-                                            <input type="text" id="contractTitle" name="contractTitle" class="form-control"
-                                                placeholder="Введите предмет контракта">
+                                            <label for="contractTitle" class="form-label"><b>Предмет контракта</b>
+                                            </label>
+                                            <input type="text" id="contractTitle" name="contractTitle" 
+                                                class="form-control" placeholder="Введите предмет контракта">
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="contractDate" class="form-label"><b>Дата заключения контракта</b>
+                                            <label for="contractDate" class="form-label"><b>Дата заключения
+                                                    контракта</b>
                                             </label>
-                                            <input type="date" id="contractDate" name="contractDate" class="form-control">
+                                            <input type="date" id="contractDate" name="contractDate"
+                                                class="form-control">
                                         </div>
                                         <div class="mb-3">
                                             <label for="stage" class="form-label"><b>Периодичность
@@ -324,6 +322,18 @@ ini_set('display_startup_errors', 1);
                                                 <option value="11">11</option>
                                                 <option value="12">12</option>
                                             </select>
+                                        </div>
+                                        <div class="stage">
+                                            <div class="mb-3">
+                                                <hr>
+                                                <h4>Этап 1</h4> <input type="text" name="stageName1" id="stageName1"
+                                                    value="1" hidden=""><label for="dateBegin1"
+                                                    class="form-label"><b>Дата начала этапа</b></label><input
+                                                    type="date" id="dateBegin1" name="dateBegin1" class="form-control">
+                                            </div>
+                                            <div class="mb-3"><label for="dateEnd1" class="form-label"><b>Дата
+                                                        завершения этапа</b></label><input type="date" id="dateEnd1"
+                                                    name="dateEnd1" class="form-control"></div>
                                         </div>
                                         <div id="block-wrap"></div>
 
@@ -396,6 +406,7 @@ ini_set('display_startup_errors', 1);
 
 
         <!-- Bootstrap core JavaScript-->
+
         <script src="../../vendor/jquery/jquery.min.js"></script>
         <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -405,73 +416,54 @@ ini_set('display_startup_errors', 1);
         <!-- Custom scripts for all pages-->
         <script src="../../js/sb-admin-2.min.js"></script>
 
-        <script src="../../vendor/angular/angular.min.js"></script>     
+        <script src="../../vendor/angular/angular.min.js"></script>
         <script src="../../vendor/angular/angular-route.js"></script>
 
         <script src="../../vendor/angular/app.js"></script>
 
 
 
+
+
+
         <script type="text/javascript" src="../../js/datatables.min.js"></script>
-   
+
+        <script src="../../vendor/multi/slimselect.min.js"></script>
+
+        <script>
+            new SlimSelect({
+                select: '#slim-select',
+                selectByGroup: true,
+                allowDeselect: true
+            })
+        </script>
+
+
         <script>
             $('#stage').change(function () {
                 $('#block-wrap')
                     .empty(); //каждый раз очищаем обёртку, прежде чем добавлять туда блок(и)
                 let val = $(this).val(); //получаем значение селекта
-                for (let i = 1; i <= val; i++) {
+                for (let i = 2; i <= val; i++) {
                     let elem =
                         '<div class="stage"><div class="mb-3"><hr><h4>Этап ' +
                         i +
-                        '</h4> <input type="text" name="stageName'+i+'" id="stageName'+i+'" value="'+i+'" hidden><label for="dateBegin'+i+'" class="form-label"><b>Дата начала этапа</b></label><input type="date" id="dateBegin'+i+'" name="dateBegin'+i+'" class="form-control"></div><div class="mb-3"><label for="dateEnd'+i+'" class="form-label"><b>Дата завершения этапа</b></label><input type="date" id="dateEnd'+i+'" name="dateEnd'+i+'" class="form-control"></div></div>'; //создаём блок с соответствующим номером этапа
+                        '</h4> <input type="text" name="stageName' + i + '" id="stageName' + i + '" value="' +
+                        i + '" hidden><label for="dateBegin' + i +
+                        '" class="form-label"><b>Дата начала этапа</b></label><input type="date" id="dateBegin' +
+                        i + '" name="dateBegin' + i +
+                        '" class="form-control"></div><div class="mb-3"><label for="dateEnd' + i +
+                        '" class="form-label"><b>Дата завершения этапа</b></label><input type="date" id="dateEnd' +
+                        i + '" name="dateEnd' + i +
+                        '" class="form-control"></div></div>'; //создаём блок с соответствующим номером этапа
                     $('#block-wrap').append(elem); //добавляем блок в обёртку
                 }
             });
         </script>
 
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#table_id').DataTable(
-
-                    {
-                        select: true,
-
-                        "language":
-
-                        {
-                            "processing": "Подождите...",
-                            "search": "Поиск:",
-                            "lengthMenu": "Показать _MENU_ записей",
-                            "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
-                            "infoEmpty": "Записи с 0 до 0 из 0 записей",
-                            "infoFiltered": "(отфильтровано из _MAX_ записей)",
-                            "loadingRecords": "Загрузка записей...",
-                            "zeroRecords": "Записи отсутствуют.",
-                            "emptyTable": "В таблице отсутствуют данные",
-                            "paginate": {
-                                "first": "Первая",
-                                "previous": "Предыдущая",
-                                "next": "Следующая",
-                                "last": "Последняя"
-                            },
-                            "aria": {
-                                "sortAscending": ": активировать для сортировки столбца по возрастанию",
-                                "sortDescending": ": активировать для сортировки столбца по убыванию"
-                            },
-                            "select": {
-                                "rows": {
-                                    "_": "Выбрано записей: %d",
-                                    "0": "Кликните по записи для выбора",
-                                    "1": "Выбрана одна запись"
-                                }
-                            }
-                        }
-                    }
-                );
 
 
-            });
-        </script>
+
 
 </body>
 

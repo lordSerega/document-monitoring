@@ -25,6 +25,11 @@ class ContractsController extends Controller {
             $nameBD = $_SESSION['user'];
             $this->pageData['nameBD'] = $nameBD;
 
+            $listDepartment = $this->model->findAllDepartment();
+		    $this->pageData['listDepartment'] = $listDepartment;
+
+
+
             $this->view->render($this->pageTpl, $this->pageData);
 
 
@@ -44,7 +49,11 @@ class ContractsController extends Controller {
         } else {
             $contactId = $_GET['id'];
             $contractInfo = json_encode($this->model->getContractById($contactId));
+        
             echo $contractInfo;
+      
+          
+
         }
     }
 
@@ -53,8 +62,9 @@ class ContractsController extends Controller {
             header("Location: /");
             return;
         }
+
     
-            $nameDp = $_SESSION['user'];
+          
             $contractNumber = trim($_POST['contractNumber']);
             $contractTitle = trim($_POST['contractTitle']);
             $contractDate = trim($_POST['contractDate']);
@@ -106,12 +116,19 @@ class ContractsController extends Controller {
             $stageName12 = trim($_POST['stageName12']);
             $dateBegin12 = trim($_POST['dateBegin12']);
             $dateEnd12 = trim($_POST['dateEnd12']);
+            
+            
+            $dpList = $_POST['namesDp'];
+
+     
+
+      
       
 
             
          
           
-            if($this->model->addContract($nameDp, $contractNumber,$contractTitle, $contractDate,
+            if($this->model->addContract($dpList, $contractNumber,$contractTitle, $contractDate,
             $stageName1, $dateBegin1, $dateEnd1,
             $stageName2, $dateBegin2, $dateEnd2,
             $stageName3, $dateBegin3, $dateEnd3,
