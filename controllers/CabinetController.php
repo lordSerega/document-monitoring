@@ -23,12 +23,21 @@ class CabinetController extends Controller {
         $contractCount = $this->model->getContractCount();
         $this->pageData['contractCount'] = $contractCount;
 
+        $contractCountCurrent = $this->model->getContractCountCurrent();
+        $this->pageData['contractCountCurrent'] = $contractCountCurrent;
+
         
         $contractTomorrow = $this->model->getContractTomorrow();
         $this->pageData['contractTomorrow'] = $contractTomorrow;
 
+        $contractTomorrowCurrent = $this->model->getContractTomorrowCurrent();
+        $this->pageData['contractTomorrowCurrent'] = $contractTomorrowCurrent;
+
         $contractToday = $this->model->getContractToday();
         $this->pageData['contractToday'] = $contractToday;
+
+        $contractTodayCurrent = $this->model->getContractTodayCurrent();
+        $this->pageData['contractTodayCurrent'] = $contractTodayCurrent;
 
         $nameBD = $this->model->getName();
         $this->pageData['nameBD'] = $nameBD;
@@ -36,8 +45,14 @@ class CabinetController extends Controller {
         $contracts = $this->model->getAllContracts();
         $this->pageData['contracts'] = $contracts;
 
+        $contractsCurrent = $this->model->getAllContractsCurrent();
+        $this->pageData['contractsCurrent'] = $contractsCurrent;
+
         $contractsBad = $this->model->getContractBad();
         $this->pageData['contractsBad'] = $contractsBad;
+
+        $contractsBadCurrent = $this->model->getContractBadCurrent();
+        $this->pageData['contractsBadCurrent'] = $contractsBadCurrent;
 
         
 

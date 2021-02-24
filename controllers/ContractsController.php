@@ -57,6 +57,25 @@ class ContractsController extends Controller {
         }
     }
 
+        public function getStages () {
+        if(!$_SESSION['user']){
+            header("Location: /");
+            return;
+        }
+
+        if(!isset($_GET['id'])){
+            echo json_encode(array("success" =>false));
+        } else {
+            $contactId = $_GET['id'];
+            $contractInfo = json_encode($this->model->getStagesById($contactId));
+        
+            echo $contractInfo;
+      
+          
+
+        }
+    }
+
     public function addContract() {
         if(!$_SESSION['user']) {
             header("Location: /");

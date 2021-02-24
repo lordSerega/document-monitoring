@@ -44,6 +44,30 @@ class ContractsModel extends Model {
        
    }
 
+
+   public function getStagesById($id){
+      
+
+      
+
+     $sql1 = "SELECT * from stage WHERE contracrt = :idContract";
+     $stmt1 = $this->db->prepare($sql1);
+     $stmt1->bindValue(":idContract", $id, PDO::PARAM_INT);
+     $stmt1->execute();
+  
+     while($row = $stmt1->fetch(PDO::FETCH_ASSOC)) {
+			$stageContract[$row['id_stage']] = $row;
+        }
+  
+
+        if(isset($stageContract)){
+            return $stageContract; 
+        }
+
+
+       
+   }
+
    /**
  * Функция вывода из БД всех отделений
  */
@@ -63,20 +87,6 @@ class ContractsModel extends Model {
 
 
 
-   public function getStagesById($id) {
-
-    $sql=  "SELECT * from stage WHERE contract = :idContract";
-    $stmt = $this ->db->prepare($sql);
-    $stmt->bindValue(":idContract", $id, PDO::PARAM_INT);
-    $stmt->execute();
-    
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-      $stageContract[$row['id_stage']] = $row;
-    }
-    if (isset($stageContract)){
-      return $stageContract;
-    }
-   }
 
    public function getCountStageById($id){
 

@@ -27,18 +27,12 @@
                     <input type="date" data-ng-model="dateConclusion" id="dateConclusion" class="form-control">
                 </div>
 
-                <input type="text" data-ng-model="stage" id="stage" class="form-control">
-
-
-
-{{id_stage}}
 
                 <div class="mb-3">
                     <button class="btn btn-primary">Сохранить</button>
                     <button class="btn btn-danger" type="button"
                         data-ng-click="deleteContract(idContract)">Удалить</button>
-                        <button class="btn btn-info" type="button"
-                        >Этапы контракта</button>
+                
                 </div>
 
 
@@ -52,83 +46,48 @@
         <hr>
         <h4>Этапы контракта:</h4>
 
-        <div class="card">
-
-            <div class="card-body">
-                <legend> <i class="fas fa-unlock"></i> Этап 1 <span class="badge badge-success">В процессе</span></legend>
-                <div class="mb-3">
-                    <label for="dateConclusion" class="form-label"><b>Дата начала этапа</b>
-                    </label>
-                    <input type="date" data-ng-model="dateConclusion" id="dateConclusion" class="form-control" disabled>
-                </div>
-                <div class="mb-3">
-                    <label for="dateConclusion" class="form-label"><b>Дата окончания этапа</b>
-                    </label>
-                    <input type="date" data-ng-model="dateConclusion" id="dateConclusion" class="form-control" disabled>
-                </div>
-
-                <hr>
-
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-
-                        <span class="input-group-text" id="inputGroupFileAddon01">Загузка документа</span>
-                    </div>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile01"
-                            aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label" for="inputGroupFile01">Выберите файл...</label>
-                    </div>
-                </div>
-                <button class="btn btn-success">Отправить документ</button>
 
 
+        <table id="table_id" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Код</th>
+                                            <th>Номер этапа</th>
+                                            <th>Дата начала</th>
+                                            <th>Дата завершения</th>
+                                            <th>Статус</th>
+                                            <th>Действие</th>
+                                            
 
-            </div>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
+                                  
+                                        
+                                        <tr ng-repeat="stage in stages">
+                                            <td>{{stage.id_stage}}</td>
+                                            <td>{{stage.number_stage}}</td>
+                                            <td>{{stage.dtSt_begin}}</td>
+                                            <td>{{stage.dtSt_end}}</td>
+                                            <td class="" id="stat">{{stage.status}}</td>
+                                            
+                                            <td><a href="stage/{{stage.id_stage}}"   target="_blank" class="btn btn-primary " role="button" aria-pressed="true">Подробнее</a></td>
+                                        
+                                        
+            
+                                        </tr>
+        
 
-        </div>
+                                    </tbody>
+                                    
+                                </table>
 
-        <div class="card mt-2">
+                            
+    
 
-            <div class="card-body">
-                <legend> <i class="fas fa-lock"> </i> Этап 3 <span class="badge badge-secondary">Ожидает завершение предыдущего этапа</span></legend>
+     
 
-            </div>
-
-        </div>
-        <div class="card mt-2">
-
-            <div class="card-body">
-                <legend><i class="fas fa-lock"> </i> Этап 4 <span class="badge badge-secondary">Ожидает завершение предыдущего этапа</span></legend>
-
-            </div>
-
-        </div>
-        <div class="card mt-2">
-
-            <div class="card-body">
-                <legend><i class="fas fa-lock"> </i> Этап 5 <span class="badge badge-secondary">Ожидает завершение предыдущего этапа</span></legend>
-
-            </div>
-
-        </div>
-        <div class="card mt-2">
-
-            <div class="card-body">
-                <legend><i class="fas fa-lock"> </i> Этап 6 <span class="badge badge-secondary">Ожидает завершение предыдущего этапа</span></legend>
-
-            </div>
-
-        </div>
-        <div class="card mt-2">
-
-            <div class="card-body">
-                <legend><i class="fas fa-lock"> </i>  Этап 7 <span class="badge badge-secondary">Ожидает завершение предыдущего этапа</span></legend>
-
-            </div>
-
-        </div>
 
     </div>
 

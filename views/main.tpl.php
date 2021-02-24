@@ -1,4 +1,7 @@
-
+<?php if($_SESSION['user']){
+            header("Location:http://localhost/cabinet");
+            return;
+        } else {  ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,15 +21,16 @@
         <div class="row table-cell-block">
             <div class="col-md-8 offset-md-2">
 
-                <h1 class="text-center"></h1>
+                <h1 class="text-center"><img src="/img/logo.svg" style="width: 20%;" class="pb-2" alt="" id="profile-img"></h1>
 
                 <div class="card text-center">
                     <div class="card-header">
                         Система мониторинга движения первичных документов
+                        
+
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">Выберите нужное отделение</h5>
-                        <img src="/img/police-station.png" style="width: 20%;" class="pb-2" alt="" id="profile-img">
                         <form method="post" id="form-signin">
                             
                         <?php if(!empty($pageData['error'])) :?>
@@ -61,7 +65,7 @@
                             </div>
                             <div class="form-group row pl-0">
                                 <div class="col-sm-12 ml-0 pl-0">
-                                    <button type="submit" class="btn btn-primary">Войти</button>
+                                    <button type="submit" class="btn btn-danger pl-5 pr-5 s">Войти</button>
                                 </div>
                             </div>
                         </form>
@@ -83,3 +87,4 @@
 </body>
 
 </html>
+<?php }?>

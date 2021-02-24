@@ -36,3 +36,16 @@ html,body{
  text-decoration: none;
  color: #F7F7F7;
 }
+
+.blink {
+    animation-name: blink;
+  animation-timing-function: linear;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }

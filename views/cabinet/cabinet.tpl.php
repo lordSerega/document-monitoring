@@ -35,14 +35,14 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-file-invoice"></i>
+            <a class=" sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon  ">
+                <img src="/img/logo.svg" style="width: 200%;"  alt="" id="profile-img">
                 </div>
-                <div class="sidebar-brand-text mx-3">ПФР <sup>МДПД</sup></div>
+                <div class="sidebar-brand-text mx-3 pl-4"> <sup>МДПД</sup></div>
             </a>
 
             <!-- Divider -->
@@ -215,7 +215,11 @@
 
 
 
-                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <div class="topbar-divider d-none d-sm-block">
+                            
+                        </div>
+
+                        
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
@@ -256,8 +260,17 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid" data-ng-app="contracts" data-ng-controller="contractsController">
                    
-          
+                <div class="alert alert-success" role="alert">
+  <h4 class="alert-heading">Отлично сработано!</h4>
+  <p>О да, Вы успешно прочитали это важное предупреждающее сообщение. Этот пример текста будет длиться немного дольше, чтобы Вы могли увидеть, как интервалы в предупреждении работают с этим типом контента.</p>
+  <hr>
+  <p class="mb-0">Когда Вам нужно, обязательно используйте маржинальные утилиты, чтобы все было в порядке и порядке.</p>
+</div>
 
+
+
+          
+                <?php if (  $_SESSION['user']== '71') { ?>
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Информация</h1>
@@ -359,7 +372,7 @@
 
                     <div class="row">
                         <div class="col-xl-12">
-                            <h6 class="m-0 font-weight-bold text-primary p-1">Список <span class="badge bg-success text-light">текущих</span> контрактов </h6>
+                            <h6 class="m-0 font-weight-bold text-primary p-1">Список <span class="badge bg-success text-light blink">текущих</span> контрактов </h6>
                             <div class="table-area bg-white card p-3 shadow">
                                 <table id="table_id" class="table table-hover">
                                     <thead>
@@ -424,7 +437,7 @@
                                             <th>№ контракта</th>
                                             <th>Дата заключения</th>
                                             <th>Предмет контракта</th>
-                                            <th>Периодичность</th>
+                                            <th>Управление</th>
                                             <th>Крайняя дата</th>
                                             
 
@@ -436,6 +449,194 @@
                     </div>
 
                     <!-- /.container-fluid -->
+
+                    <?php } else {  ?>
+
+
+
+
+
+
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Информация</h1>
+                    
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Контрактов (Всего)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php echo $pageData['contractCountCurrent'];?></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-file-invoice-dollar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-danger shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                Истекает срок (Завтра)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php echo $pageData['contractTomorrowCurrent'];?></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="far fa-clock fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Истекает срок (сегодня)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php echo $pageData['contractTodayCurrent'];?></div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-dark shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                                                Просрочены</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?php echo $pageData['contractsBadCurrent'];?>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                    <div class="col-xl-12" data-ng-view>
+                    <a href="#some_point"></a>
+
+                    </div>
+                    </div>
+
+                    <!-- Content Row -->
+
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <h6 class="m-0 font-weight-bold text-primary p-1">Список <span class="badge bg-success text-light">текущих</span> контрактов </h6>
+                            <div class="table-area bg-white card p-3 shadow">
+                                <table id="table_id" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>№ контракта</th>
+                                            <th>Дата заключения</th>
+                                            <th>Предмет контракта</th>
+                                            <th>Отделение</th>
+                                            <th>Крайняя дата</th>
+                                            
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+
+
+                                
+
+                                        if(isset($pageData['contractsCurrent'])){
+    
+                                        foreach($pageData['contractsCurrent'] as $key =>$value) {
+                                            $classTR = "";
+                                            $dn = date("Y-m-d");
+                                            $tomorrow = date('Y-m-d', strtotime($dn) + 86400);
+                                            $dateConclusion = $value['dateConclusion'];
+                                            $dateConclusion = date("d.m.Y", strtotime($dateConclusion));
+                                            $dateEnd = $value['dtSt_end'];
+                                            $dateEnd = date("d.m.Y", strtotime($dateEnd));
+                                           
+                                            if (strtotime($dn)>strtotime($value['dtSt_end']) ) {
+                                                $classTR = "bg-dark text-light";
+                                            }  if (strtotime($dn) == strtotime($value['dtSt_end']) ) {
+                                                $classTR = "bg-warning text-dark";
+
+                                            }if  (strtotime($tomorrow) == strtotime($value['dtSt_end']) ) {
+                                                $classTR = "bg-danger text-light";
+
+                                            }
+                                            ?>
+                                        <tr class="<?php echo $classTR;?>">
+                                        
+                                            <td> <?php echo $value['idContract']; ?></td>
+                                            <td><a data-ng-click="getInfoByContractID(<?php echo $value['idContract'];?>)" href="<?php echo $value['numberContract'];?>" class="numberContract"><?php echo $value['numberContract']; ?></a></td>
+                                            <td><?php echo $dateConclusion; ?></td>
+                                            <td>
+                                            <?php echo $value['nameContract']; ?> 
+                                            <span class="badge badge-secondary">Этап # <?php echo $value['number_stage']; ?></span>
+                                            </td>
+                                            <td><?php echo $value['departmentName']; ?></td>
+                                            <td><?php echo $dateEnd; ?></td>
+                                        
+            
+                                        </tr>
+                                        <?php } }?>
+
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                            <th>#</th>
+                                            <th>№ контракта</th>
+                                            <th>Дата заключения</th>
+                                            <th>Предмет контракта</th>
+                                            <th>Управление</th>
+                                            <th>Крайняя дата</th>
+                                            
+
+                                        </tr>
+        </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                        
+                    <?php }?>
 
                 </div>
                 <!-- End of Main Content -->
@@ -507,6 +708,36 @@
         <script type="text/javascript">
         $(document).ready(function() {
     $('#table_id').DataTable( {
+        "language":
+
+{
+  "processing": "Подождите...",
+  "search": "Поиск:",
+  "lengthMenu": "Показать _MENU_ записей",
+  "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+  "infoEmpty": "Записи с 0 до 0 из 0 записей",
+  "infoFiltered": "(отфильтровано из _MAX_ записей)",
+  "loadingRecords": "Загрузка записей...",
+  "zeroRecords": "Записи отсутствуют.",
+  "emptyTable": "В таблице отсутствуют данные",
+  "paginate": {
+    "first": "Первая",
+    "previous": "Предыдущая",
+    "next": "Следующая",
+    "last": "Последняя"
+  },
+  "aria": {
+    "sortAscending": ": активировать для сортировки столбца по возрастанию",
+    "sortDescending": ": активировать для сортировки столбца по убыванию"
+  },
+  "select": {
+    "rows": {
+      "_": "Выбрано записей: %d",
+      "0": "Кликните по записи для выбора",
+      "1": "Выбрана одна запись"
+    }
+  }
+},
         initComplete: function () {
             this.api().columns([4]).every( function () {
                 var column = this;

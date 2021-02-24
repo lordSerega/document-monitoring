@@ -19,7 +19,7 @@ app.controller('contractsController', function($scope, $http, $window){
             method: "GET",
             url:  "http://localhost/cabinet/contracts/getContracts",
             params: {id: id}
-        }).then(function(result,stageContract){
+        }).then(function(result){
             window.scrollTo(0, 100);
 
             $scope.idContract = result.data.idContract;
@@ -30,10 +30,29 @@ app.controller('contractsController', function($scope, $http, $window){
           
             $scope.dateConclusion= new Date(result.data.dateConclusion);
 
-            $scope.stage= stageContract[1].data.id_stage;                                                                    
+
+
+
+                                                                   
             
             
-        })
+        }).then(
+            $http({
+                method: "GET",
+                url:  "http://localhost/cabinet/contracts/getStages",
+                params: {id: id}
+            }).then(function(result){
+
+                var stages = result.data;
+
+                $scope.stages= stages;     
+
+               
+                
+
+
+            })
+        )
     }
 
 
