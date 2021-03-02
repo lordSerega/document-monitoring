@@ -38,6 +38,8 @@ class ContractsController extends Controller {
     
     }
 
+
+
     public function getContracts () {
         if(!$_SESSION['user']){
             header("Location: /");
@@ -217,6 +219,34 @@ class ContractsController extends Controller {
 
 
     }
+
+
+    
+    public function getStage () {
+     
+
+        if(!$_SESSION['user']){
+            header("Location: /");
+            return;
+        }
+
+       
+            $stageID = $_GET['id'];
+            $stageInfo = json_encode($this->model->getStageById($stageID));
+
+            echo $stageInfo;
+            
+        
+      
+          
+  
+      
+          
+
+        
+      
+        }
+
 
 
 

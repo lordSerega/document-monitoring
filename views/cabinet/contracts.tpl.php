@@ -32,7 +32,7 @@ ini_set('display_startup_errors', 1);
 
 </head>
 
-<body id="page-top" data-ng-app="contracts" data-ng-controller="contractsController">
+<body id="page-top" data-app="contracts" data-ng-controller="contractsController">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -337,7 +337,8 @@ ini_set('display_startup_errors', 1);
                                         </div>
                                         <div id="block-wrap"></div>
 
-                                        <button class="btn btn-success" data-ng-click="addContract()">Добавить контракт</button>
+                                        <button class="btn btn-success" 
+                                        g-click="addContract()">Добавить контракт</button>
 
                                     </form>
 

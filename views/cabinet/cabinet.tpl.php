@@ -256,10 +256,13 @@
 
                 </nav>
                 <!-- End of Topbar -->
-
+               
                 <!-- Begin Page Content -->
                 <div class="container-fluid" data-ng-app="contracts" data-ng-controller="contractsController">
                    
+   
+
+
                 <div class="alert alert-success" role="alert">
   <h4 class="alert-heading">Отлично сработано!</h4>
   <p>О да, Вы успешно прочитали это важное предупреждающее сообщение. Этот пример текста будет длиться немного дольше, чтобы Вы могли увидеть, как интервалы в предупреждении работают с этим типом контента.</p>
@@ -362,7 +365,9 @@
                     </div>
 
                     <div class="row">
-                    <div class="col-xl-12" data-ng-view>
+                    <div class="col-xl-12">
+                    <ng-include src="templatePath"></ng-include>
+                    <ng-include src="templatePathStage"></ng-include>
                     <a href="#some_point"></a>
 
                     </div>
@@ -546,7 +551,8 @@
                     </div>
 
                     <div class="row">
-                    <div class="col-xl-12" data-ng-view>
+                    <div class="col-xl-12" >
+                  
                     <a href="#some_point"></a>
 
                     </div>
@@ -602,7 +608,7 @@
                                         
                                             <td> <?php echo $value['idContract']; ?></td>
                                             <td><a data-ng-click="getInfoByContractID(<?php echo $value['idContract'];?>)" href="<?php echo $value['numberContract'];?>" class="numberContract"><?php echo $value['numberContract']; ?></a></td>
-                                            <td><?php echo $dateConclusion; ?></td>
+                                            <td><?php echo $dateConclusion; ?></td>0
                                             <td>
                                             <?php echo $value['nameContract']; ?> 
                                             <span class="badge badge-secondary">Этап # <?php echo $value['number_stage']; ?></span>
@@ -708,9 +714,26 @@
         <script type="text/javascript">
         $(document).ready(function() {
     $('#table_id').DataTable( {
+        dom: 'lBfrtip',
+   
+"buttons": [
+            {
+                extend: 'collection',
+                text: 'Экспортировать в:',
+                buttons: [
+                    'copy',
+                    'excel',
+                    'csv',
+                    'pdf',
+                    'print'
+                ]
+            }
+        ],
+
         "language":
 
 {
+   
   "processing": "Подождите...",
   "search": "Поиск:",
   "lengthMenu": "Показать _MENU_ записей",
@@ -739,7 +762,7 @@
   }
 },
         initComplete: function () {
-            this.api().columns([4]).every( function () {
+            this.api().columns([4,5]).every( function () {
                 var column = this;
                 var select = $('<select class="form-control" ><option value=""></option></select>')
                     .appendTo( $(column.header()).empty() )

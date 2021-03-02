@@ -19,33 +19,12 @@ app.config(function($routeProvider, $locationProvider){
 
 app.controller('contractsController', function($scope, $http, $window){
 
-  
-    
-    $scope.getInfoByStage = function(id) {
-        $scope.templatePathStage = "/views/cabinet/stage-view.php";
-
-        $http({
-            method: "GET",
-            url:  "http://localhost/cabinet/contracts/getStage",
-            params: {id: id}
-        }).then(function(result){
-      
-            $scope.stageCode = result.data.id_stage;
-            $scope.stageNumber  = result.data.number_stage;
-            $scope.stageBegin = new Date(result.data.dtSt_begin);
-            $scope.stageEnd = new Date(result.data.dtSt_end);
-           
-     
-     
-        })
-    }
 
 
+    $scope.templatePath = "/views/cabinet/contracts-view1.php";
 
 
     $scope.getInfoByContractID = function(id) {
-        $scope.templatePath = "/views/cabinet/contracts-view.php";
-
         $http({
             method: "GET",
             url:  "http://localhost/cabinet/contracts/getContracts",
@@ -60,7 +39,13 @@ app.controller('contractsController', function($scope, $http, $window){
             $scope.nameContract= result.data.nameContract;
           
             $scope.dateConclusion= new Date(result.data.dateConclusion);
-     
+
+
+
+
+                                                                   
+            
+            
         }).then(
             $http({
                 method: "GET",

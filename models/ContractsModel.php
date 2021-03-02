@@ -5,6 +5,46 @@ ini_set('display_startup_errors', 1);
 
 class ContractsModel extends Model {
 
+
+  public function getStage($id){
+    $result = array();
+
+    $sql= "SELECT * from stage WHERE id_stage = :id_stage";
+
+  $stmt = $this->db->prepare($sql);
+  $stmt->bindValue(":id_stage", $id, PDO::PARAM_INT);
+  $stmt->execute();
+  $result=$stmt->fetch(PDO::FETCH_ASSOC);
+
+  return $result;
+
+
+
+    
+}
+
+
+
+public function getStageById($id){
+  $result = array();
+
+  $sql= "SELECT
+  *
+FROM  stage
+WHERE id_stage =  :idContract";
+
+$stmt = $this->db->prepare($sql);
+$stmt->bindValue(":idContract", $id, PDO::PARAM_INT);
+$stmt->execute();
+$result=$stmt->fetch(PDO::FETCH_ASSOC);
+
+return $result;
+  
+}
+
+
+
+
    public function getContractById($id){
        $result = array();
 

@@ -38,6 +38,8 @@
 
         </form>
 
+        
+
       
 
 
@@ -72,7 +74,8 @@
                                             <td>{{stage.dtSt_end}}</td>
                                             <td class="" id="stat">{{stage.status}}</td>
                                             
-                                            <td><a href="stage/{{stage.id_stage}}"   target="_blank" class="btn btn-primary " role="button" aria-pressed="true">Подробнее</a></td>
+                                            <td><a data-ng-click="getInfoByStage(stage.id_stage)"  href="stage{{stage.id_stage}}"   
+                                             class="btn btn-primary " role="button" aria-pressed="true">Подробнее</a></td>
                                         
                                         
             
